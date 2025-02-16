@@ -128,3 +128,22 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# React Native
+.expo/
+.expo-shared/
+
+# React Native macOS
+*.xcworkspace
+*.xcuserdata
+*.xcodeproj
+*.xcuserstate
+*.xcuserdatad
+*.xcsettings
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.crash.log
+.terraform/
+.terraform.lock.hcl
