@@ -1,5 +1,7 @@
 resource "aws_vpc" "serverless_ai_vpc" {
   cidr_block = "10.0.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
 
   tags = {
     Name        = "serverless-ai-vpc"
@@ -33,30 +35,6 @@ resource "aws_subnet" "serverless_ai_private_subnet" {
   }
 }
 
-resource "aws_security_group" "serverless_ai_rds_sg" {
-  vpc_id = aws_vpc.serverless_ai_vpc.id
-
-  ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/16"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name        = "serverless-ai-rds-sg"
-    Environment = "demo"
-    Project     = "serverless-ai"
-  }
-}
-
 resource "aws_security_group" "serverless_ai_lambda_sg" {
   vpc_id = aws_vpc.serverless_ai_vpc.id
 
@@ -69,6 +47,31 @@ resource "aws_security_group" "serverless_ai_lambda_sg" {
 
   tags = {
     Name        = "serverless-ai-lambda-sg"
+    Environment = "demo"
+    Project     = "serverless-ai"
+  }
+}
+
+resource "aws_security_group" "serverless_ai_rds_sg" {
+  vpc_id = aws_vpc.serverless_ai_vpc.id
+
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    # cidr_blocks = ["10.0.0.0/16"]
+    security_groups = [aws_security_group.serverless_ai_lambda_sg.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "serverless-ai-rds-sg"
     Environment = "demo"
     Project     = "serverless-ai"
   }

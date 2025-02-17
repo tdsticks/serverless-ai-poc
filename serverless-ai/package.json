@@ -8,7 +8,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "package": "zip -r lambda.zip app.js node_modules package.json package-lock.json",
+    "package": "zip -r ./tf/lambda.zip app.js node_modules package.json package-lock.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

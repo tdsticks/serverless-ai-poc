@@ -12,19 +12,21 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Build the connection string from individual environment variables
-const dbUser = process.env.DB_USER;
-const dbPassword = process.env.DB_PASSWORD;
-const dbHost = process.env.DB_HOST;
-const dbPort = process.env.DB_PORT || 5432;
-const dbName = process.env.DB_NAME;
-
-// Construct DATABASE_URL
-const databaseUrl = `postgres://${dbUser}:${dbPassword}@${dbHost}:${dbPort}/${dbName}`;
+console.log('DB CONFIG:', {
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+});
 
 const pool = new Pool({
-  connectionString: databaseUrl,
-  ssl: { rejectUnauthorized: false }
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORyT ? Number(process.env.DB_PORT) : 5432,
+  ssl: { rejectUnauthorized: false },
 });
 
 // Basic API routes

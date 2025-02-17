@@ -147,3 +147,4 @@ dist
 .crash.log
 .terraform/
 .terraform.lock.hcl
+*.tfvars
