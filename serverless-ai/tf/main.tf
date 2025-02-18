@@ -9,7 +9,7 @@ variable "aws_region" {
 
 variable "environment" {
   description = "Deployment environment"
-  default     = "demo"
+  default     = "development"
 }
 
 variable "owner" {

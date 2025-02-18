@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 console.log('DB CONFIG:', {
-  user: process.env.DB_USER,
+  user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
@@ -21,11 +21,11 @@ console.log('DB CONFIG:', {
 });
 
 const pool = new Pool({
-  user: process.env.DB_USER,
+  user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORyT ? Number(process.env.DB_PORT) : 5432,
+  port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 5432,
   ssl: { rejectUnauthorized: false },
 });
 

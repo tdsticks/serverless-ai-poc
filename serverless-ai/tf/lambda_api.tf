@@ -48,9 +48,7 @@ resource "aws_lambda_function" "serverless_ai_lambda" {
   runtime       = "nodejs20.x"
   handler       = "app.main"
   role          = aws_iam_role.serverless_ai_lambda_role.arn
-  # filename      = "${path.module}/tf/lambda.zip"
   filename      = "./lambda.zip"
-  # source_code_hash = filebase64sha256("${path.module}/tf/lambda.zip")
   source_code_hash = filebase64sha256("./lambda.zip")
 
   vpc_config {
@@ -65,6 +63,7 @@ resource "aws_lambda_function" "serverless_ai_lambda" {
       DB_HOST     = var.db_host
       DB_NAME     = var.db_name
       DB_PORT     = var.db_port
+      NODE_ENV    = var.environment
     }
   }
 }
