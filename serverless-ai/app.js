@@ -1,4 +1,5 @@
 const express = require('express');
+const serverlessExpress = require('@codegenie/serverless-express')
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { Pool } = require('pg');
@@ -55,6 +56,5 @@ if (process.env.NODE_ENV !== 'production') {
 // Export app for Lambda compatibility
 module.exports = app;
 
-// Lambda handler for serverless
-const serverlessExpress = require('@vendia/serverless-express');
+// Lambda handler for serverless deployment
 module.exports.main = serverlessExpress({ app });
