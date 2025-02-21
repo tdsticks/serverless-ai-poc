@@ -11,7 +11,7 @@ exports.handler = async (event) => {
         database: process.env.DB_NAME,
         password: process.env.DB_PASSWORD,
         port: process.env.DB_PORT || 5432,
-        ssl: { rejectUnauthorized: false } // Temporary: Disables SSL requirement for local testing
+        ssl: { rejectUnauthorized: false } // Disables SSL requirement for testing
     };
 
     console.log("Connecting to database:", dbConfig.host);

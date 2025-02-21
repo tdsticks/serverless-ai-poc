@@ -11,7 +11,23 @@ class NodeLambdaRdsStack extends cdk.Stack {
     super(scope, id, props);
 
     // Create a VPC (required for RDS)
-    const vpc = new ec2.Vpc(this, 'MyVpc', { maxAzs: 2 });
+    // const vpc = new ec2.Vpc(this, 'MyVpc', { maxAzs: 2 });
+    const vpc = new ec2.Vpc(this, 'MyVpc', {
+        maxAzs: 2,  // Limits to 2 Availability Zones
+        natGateways: 1,  // Use only 1 NAT Gateway instead of 2+
+        subnetConfiguration: [
+          {
+            cidrMask: 24,
+            name: 'PublicSubnet',
+            subnetType: ec2.SubnetType.PUBLIC,  // Only create Public Subnets
+          },
+          {
+            cidrMask: 24,
+            name: 'PrivateSubnet',
+            subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,  // Only create Private Subnets
+          }
+        ],
+      });
 
     // Create an RDS Postgres instance
     const dbSecret = new secretsmanager.Secret(this, 'DBSecret', {
